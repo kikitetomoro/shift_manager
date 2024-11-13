@@ -1,25 +1,15 @@
+#シフト管理アプリ
+###機能
+- ユーザー登録、認証
+- 従業員（一覧表示、変更、作成、消去）
+- シフト設定（一覧表示、変更、作成、消去）
+- 定期処理（メール送信、シフトリクエスト作成、シフトリクエスト消去）
+- シフトリクエスト一覧表示、変更、作成
+- カレンダー
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+###今後の実装予定
+- シフトの自動生成
+- シフト(一覧表示、詳細表示）
+- googleカレンダーとの連携
 
 
