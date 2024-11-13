@@ -1,0 +1,51 @@
+
+<div class="container">
+  <ul class="admin-nav-bar">
+        <% if admin_user_signed_in? %>
+          <li><%= link_to "従業員一覧", employees_path %></li>
+          <li><%= link_to 'シフト設定一覧', shift_settings_path %></li>
+          <li><%= link_to 'シフト一覧', root_path %></li>
+          <li class="logout-btn"><%= link_to "ログアウト", destroy_admin_user_session_path, data: { turbo_method: :delete } %></li>
+        <% else %>
+          <li><%= link_to "新規登録", new_admin_user_registration_path %></li>
+          <li><%= link_to "ログイン", new_admin_user_session_path %></li>
+        <% end %>
+    </ul>
+
+
+  <h1 class="ttl">従業員の追加</h1>
+
+  <%= form_with model: @employee, url: employees_path do |form| %>
+    <div class="field">
+      <%= form.label :email %><br />
+      <%= form.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+    <div class="field">
+      <%= form.label :name, "従業員名"%><br />
+      <%= form.text_field :name, autofocus: true, autocomplete: "name" %>
+    </div>
+    <div class="field">
+      <%= form.label :employee_id, "従業員ID"%><br />
+      <%= form.text_field :employee_id, autofocus: true, autocomplete: "employee_id" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= form.password_field :password, autocomplete: "new-password" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password_confirmation %><br />
+      <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit '追加' %>
+    </div>
+  <% end %>
+</div>
+
+

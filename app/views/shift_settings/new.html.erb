@@ -1,0 +1,51 @@
+<div class="container">
+  <ul class="admin-nav-bar">
+        <% if admin_user_signed_in? %>
+          <li><%= link_to "従業員一覧", employees_path %></li>
+          <li><%= link_to 'シフト設定一覧', shift_settings_path %></li>
+          <li><%= link_to 'シフト一覧', root_path %></li>
+          <li class="logout-btn"><%= link_to "ログアウト", destroy_admin_user_session_path, data: { turbo_method: :delete } %></li>
+        <% else %>
+          <li><%= link_to "新規登録", new_admin_user_registration_path %></li>
+          <li><%= link_to "ログイン", new_admin_user_session_path %></li>
+        <% end %>
+    </ul>
+
+
+  <h1 class="ttl">新しいシフト設定を作成</h1>
+
+  <%= form_with(model: @shift_setting, local: true) do |form| %>
+
+    <% if @shift_setting.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@shift_setting.errors.count, "エラー") %> が発生しました:</h2>
+        <ul>
+          <% @shift_setting.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    <div class="field">
+      <%= form.label :send_date, "シフト希望送信日" , class: "field-label" %>
+      <%= form.number_field :send_date, min: 1, max: 31, required: true, class: "field-input"  %> 
+    </div>
+
+    <div class="field">
+      <%= form.label :deadline_date, "提出期限の日", class: "field-label"  %>
+      <%= form.number_field :deadline_date, min: 1, max: 31, required: true, class: "field-input"  %>
+    </div>
+
+    <div class="field">
+      <%= form.label :remind_date, "リマインド日", class: "field-label"  %>
+      <%= form.number_field :remind_date, min: 1, max: 31, required: true, class: "field-input"  %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit  '作成する' %>
+    </div>
+  <% end %>
+
+</div>

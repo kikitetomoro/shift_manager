@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2024-11-12
+  start_time: 2024-11-12 13:57:56
+  end_time: 2024-11-12 13:57:56
+  shortage_count: 1
+  shortage_details: MyString
+
+two:
+  date: 2024-11-12
+  start_time: 2024-11-12 13:57:56
+  end_time: 2024-11-12 13:57:56
+  shortage_count: 1
+  shortage_details: MyString

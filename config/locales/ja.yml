@@ -1,0 +1,38 @@
+ja:
+  activerecord:
+    user:
+    errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました：%{errors}"
+        restrict_dependent_destroy:
+          has_one: "削除できません（%{record}が存在します）"
+          has_many: "削除できません（%{record}が複数存在します）"
+
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
+        name: "従業員名"
+        employee_id: "従業員ID"
+        
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      blank: "を入力してください"
+      too_short: "は%{count}文字以上で入力してください"
+      too_long: "は%{count}文字以内で入力してください"
+      taken: "は既に使用されています"
+      confirmation: "が一致しません"
+      invalid: "は無効な値です"
+      not_saved: "保存できませんでした。入力内容を確認してください。"
+      
+  date:
+    month_names: [~, "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+    day_names: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
+    abbr_day_names: ["Sun", "Mon", "Tus", "Wen", "Thr", "Fri", "Sat"]
+
+  simple_calendar:
+    previous: "先月"
+    today: "今月"
+    next: "先月"

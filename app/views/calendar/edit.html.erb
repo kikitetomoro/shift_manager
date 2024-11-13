@@ -1,0 +1,96 @@
+<div class="container">
+  <ul class="user-nav-bar">
+    <% if user_signed_in? %>
+      <li><%= link_to "トップ", calendar_index_path %></li>
+      <li  class="logout-btn"><%= link_to "ログアウト", destroy_user_session_path,data: { turbo_method: :delete } %></li>
+    <% else %>
+      <li><%= link_to "ログイン", new_user_session_path %></li>
+    <% end %>
+  </ul>
+
+
+
+  <h1 class="emp-ttl">シフト希望日と時間範囲を選択</h1>
+    <%= month_calendar do |date| %>
+      <%= link_to date.day, '#', class: "calendar-date", data: { date: date } %>
+    <% end %>
+    <div class="form-body"> 
+      <%= form_with(model: @shift_time, url: calendar_path(@shift_request),method: :patch,class:"calendar-form", data: { turbo: false }) do |form| %>
+      <%= form.hidden_field :shift_request_id, value: @shift_request.id %>
+      <div id="selected-dates">
+        <h3 class="request-ttl">選択した日付と時間範囲</h3>
+      </div>
+      <div class="calendar-actions">
+        <%= form.submit "シフト希望を送信",class:"emp-btn-submit"%>
+      <div>
+    <% end %>
+    <div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const selectedDatesContainer = document.getElementById("selected-dates");
+
+  document.querySelectorAll(".calendar-date").forEach(function(element) {
+    element.addEventListener("click", function(event) {
+      event.preventDefault();
+      const selectedDate = this.dataset.date;
+
+      if (!selectedDate) {
+        alert("日付が正しく選択されていません。");
+        return;
+      }
+
+      // 日付が既に選択済みかどうかを確認
+      if (document.getElementById(`date-${selectedDate}`)) {
+        alert("この日付は既に選択されています。");
+        return;
+      }
+
+      // 日付ごとに時間範囲の入力フィールドを追加
+      const dateContainer = document.createElement("div");
+      dateContainer.id = `date-${selectedDate}`;
+      dateContainer.className = "date-container";
+      dateContainer.innerHTML = `
+        <h3>${selectedDate}</h3>
+        ${generateTimeSlot(selectedDate)}
+      `;
+      selectedDatesContainer.appendChild(dateContainer);
+    });
+  });
+
+
+// 時間スロットのHTMLを生成
+function generateTimeSlot(date) {
+  const times = [
+    "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00",
+    "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"
+  ];
+  const timeOptions = times.map(time => `<option value="${time}">${time}</option>`).join("");
+  
+  return `
+    <div class="time-slot">
+      <label>開始時間</label>
+      <select name="shift_request[shift_times_attributes][][start_time]" required>
+        ${timeOptions}
+      </select>
+      <label>終了時間</label>
+      <select name="shift_request[shift_times_attributes][][end_time]" required>
+        ${timeOptions}
+      </select>
+      <input type="hidden" name="shift_request[shift_times_attributes][][date]" value="${date}">
+      <button type="button" onclick="removeTimeSlot(this)">削除</button>
+    </div>
+  `;
+}
+
+function removeTimeSlot(button) {
+  const dateContainer = button.closest(".date-container");
+  if (dateContainer) {
+    dateContainer.remove();
+  }
+}
+
+
+</script>
+

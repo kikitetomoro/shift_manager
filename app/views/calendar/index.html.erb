@@ -1,0 +1,30 @@
+<div class="container">
+  <ul class="user-nav-bar">
+    <% if user_signed_in? %>
+      <li  class="logout-btn"><%= link_to "ログアウト", destroy_user_session_path,data: { turbo_method: :delete } %></li>
+    <% else %>
+      <li><%= link_to "ログイン", new_user_session_path %></li>
+    <% end %>
+  </ul>
+
+<h1 class="emp-ttl">現在のシフト希望一覧</h1>
+  <div class="user-main-space">
+
+    <% if @shift_requests.present? %>
+        <% @shift_requests.each do |request| %>
+        <div class="request-cards">
+          <h3>シフトリクエスト</h3>
+          <div class="request-body">
+            <p>提出期限:<%= request.shift_setting.deadline_date%>日</p>
+          </div>
+            <div class="request-actions">
+              <%= link_to '日時指定画面へ', edit_calendar_path(request) , class: "emp-btn-edit"%>
+            </div>
+        </div>
+        <% end %>
+    <% else %>
+      <p><%= @message %></p>
+    <% end %>
+  
+  </div>
+<div>

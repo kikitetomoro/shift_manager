@@ -1,0 +1,39 @@
+<div class="container">
+  <ul class="admin-nav-bar">
+      <% if admin_user_signed_in? %>
+        <li><%= link_to "従業員一覧", employees_path %></li>
+        <li><%= link_to 'シフト設定一覧', shift_settings_path %></li>
+        <li><%= link_to 'シフト一覧', root_path %></li>
+        <li class="logout-btn"><%= link_to "ログアウト", destroy_admin_user_session_path, data: { turbo_method: :delete } %></li>
+      <% else %>
+        <li><%= link_to "新規登録", new_admin_user_registration_path %></li>
+        <li><%= link_to "ログイン", new_admin_user_session_path %></li>
+      <% end %>
+  </ul>
+
+  <h1 class="ttl">シフト設定一覧</h1>
+   <%= link_to '新しいシフト設定を作成', new_shift_setting_path, class: "create-btn" %>
+
+  <div class="main-space">  
+
+    <div class="shift-cards">
+  <% @shift_settings.each do |setting| %>
+    <div class="shift-card">
+      <div class="shift-ttl">
+        <%= setting.name %>
+      </div>
+      <div class="shift-body">
+        <p><strong>送信日:</strong> <%= setting.send_date %></p>
+        <p><strong>リマインダー日:</strong> <%= setting.remind_date %></p>
+        <p><strong>締め切り日:</strong> <%= setting.deadline_date %></p>
+      </div>
+      <div class="shift-actions">
+          <%= link_to '編集', edit_shift_setting_path(setting), class: "btn-edit" %>
+          <%= link_to '削除', shift_setting_path(setting), data: { turbo_method: :delete },class: "btn-delete" %>
+    </div>
+    </div>
+  <% end %>
+</div>
+  </div>
+
+</div>

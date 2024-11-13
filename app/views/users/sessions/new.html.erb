@@ -1,0 +1,26 @@
+
+
+<h2 class="ttl">ログイン画面（従業員用）</h2>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%= f.label :employee_id, "従業員ID" %>
+    <%= f.text_field :employee_id, autofocus: true, autocomplete: "employee_id" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password, autocomplete: "current-password" %>
+  </div>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="remimber-me">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit "ログインする" %>
+  </div>
+<% end %>
